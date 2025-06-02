@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll for Racing – Home</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .logo {
+      max-width: 180px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+    }
+
+    .grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 220px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-decoration: none;
+      color: #000;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card h2 {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="logo.JPEG" alt="Roll for Racing Logo" class="logo">
+  <h1>Welcome to Roll for Racing</h1>
+  <p>Select a series to roll your predictions:</p>
+
+  <div class="grid">
+    <a href="f1.html" class="card">
+      <h2>Formula 1</h2>
+      <p>Roll the grid for F1.</p>
+    </a>
+    <a href="BTCC.html" class="card">
+      <h2>BTCC</h2>
+      <p>Randomise your podium picks.</p>
+    </a>
+    <a href="indycar.html" class="card">
+      <h2>IndyCar</h2>
+      <p>Shake up the championship race.</p>
+    </a>
+    <!-- Add more series as needed -->
+  </div>
+
+</body>
+</html>
