@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll for Racing – IndyCar</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: Black;
+      text-align: center;
+      padding: 40px;
+    }
+
+    .logo {
+      max-width: 180px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 30px;
+      Color: White;
+    }
+    
+    p {
+    color: White;
+    text-indent: 30px;
+    }
+
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 0 auto 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      margin-top: 20px;
+      cursor: pointer;
+      border-radius: 8px;
+      border: none;
+      background: #111;
+      color: white;
+    }
+
+    .result {
+      font-size: 24px;
+      margin: 15px 0;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .history {
+      font-size: 16px;
+      color: #444;
+      margin-top: 10px;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+    }
+
+    li {
+      margin: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Clickable Logo linking to Home -->
+  <a href="index.html">
+    <img src="logo.JPEG" alt="Roll for Racing Logo" class="logo">
+  </a>
+
+  <h1>🏁 Roll for IndyCar</h1>
+  <p>Click the button below to randomly predict which drivers will get a podium finish at the next race.</p>
+
+  <div class="section">
+    <h2>Random Driver</h2>
+    <button onclick="pickRandomDriver()">Roll Driver</button>
+    <div id="driverResult" class="result">—</div>
+  </div>
+
+  <div class="section">
+    <h2>Selection History</h2>
+    <div class="history">
+      <strong>Last 3 Picks:</strong>
+      <ul id="driverHistory"></ul>
+    </div>
+  </div>
+
+  <script>
+   const indycarDrivers = [
+    "#2 Josef Newgarden", "#3 Scott McLaughlin", "#4 David Malukas",
+    "#5 Pato O'Ward", "#6 Nolan Siegel", "#7 Christian Lundgaard",
+    "#8 Kyffin Simpson", "#9 Scott Dixon", "#10 Álex Palou",
+    "#12 Will Power", "#14 Santino Ferrucci", "#15 Graham Rahal",
+    "#18 Rinus VeeKay", "#20 Alexander Rossi", "#21 Christian Rasmussen",
+    "#26 Colton Herta", "#27 Kyle Kirkwood", "#28 Marcus Ericsson",
+    "#30 Devlin DeFrancesco", "#45 Louis Foster", "#51 Jacob Abel",
+    "#60 Felix Rosenqvist", "#66 Marcus Armstrong", "#76 Conor Daly",
+    "#77 Sting Ray Robb", "#83 Robert Shwartzman", "#90 Callum Ilott"
+  ];
+
+
+    let driverHistory = [];
+
+    function pickRandomDriver() {
+      const randomDriver = indycarDrivers[Math.floor(Math.random() * indycarDrivers.length)];
+      document.getElementById("driverResult").textContent = randomDriver;
+      updateHistory(randomDriver);
+    }
+
+    function updateHistory(driver) {
+      driverHistory.unshift(driver);
+      if (driverHistory.length > 3) driverHistory.pop();
+
+      const ul = document.getElementById("driverHistory");
+      ul.innerHTML = driverHistory.map(name => `<li>${name}</li>`).join("");
+    }
+  </script>
+
+<footer style="margin-top: 60px; padding: 20px; background: #111; text-align: center; color: #fff;">
+  <p style="margin: 0; font-size: 14px;">
+    This is a little passion project following a few TikTok videos. There is no link to any of the racing series or drivers that appear on this site. All of this site has been created by me, Shaun Jacques · Visit 
+    <a href="https://shaunjacques.co.uk" target="_blank" style="color: #00aced; text-decoration: underline;">
+      my website</a>
+      for more about me. 
+  </p>
+</footer>
+
+</body>
+</html>
