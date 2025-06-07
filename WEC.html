@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Roll for Racing – Le Mans</title>
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .logo {
+      max-width: 180px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    h1, h2, p {
+      margin: 0 0 20px;
+      line-height: 1.4;
+    }
+
+    .section {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: 20px auto;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    /* Class-specific box colors */
+    .section.hypercar {
+      border-top: 8px solid #e10600;
+    }
+    .hypercar button {
+      background: #e10600;
+    }
+
+    .section.lmp2 {
+      border-top: 8px solid #0047ba;
+    }
+    .lmp2 button {
+      background: #0047ba;
+    }
+
+    .section.lmgt3 {
+      border-top: 8px solid #43b02a;
+    }
+    .lmgt3 button {
+      background: #43b02a;
+    }
+
+    .flex-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    
+    button {
+      padding: 14px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #111;
+      color: white;
+      cursor: pointer;
+      width: 100%;
+      max-width: 280px;
+    }
+
+    .result {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007bff;
+      margin: 20px 0;
+    }
+
+    ul {
+      padding: 0;
+      list-style-type: none;
+      margin: 0;
+    }
+
+    li {
+      margin: 5px 0;
+      font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.5em; }
+      .result { font-size: 20px; }
+      button { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Logo linking to home -->
+  <a href="index.html">
+    <img src="logo.JPEG" alt="Roll for Racing Logo" class="logo">
+  </a>
+
+  <h1>🏁 Roll for WEC / Le Mans</h1>
+  <p>Randomly pick your podium for each class</p>
+
+  <div class="flex-container">
+   <!-- Hypercar -->
+   <div class="section hypercar">
+    <h2>Hypercar</h2>
+    <button onclick="pickHypercar()">Roll Hypercar</button>
+    <div id="hypercarResult" class="result">—</div>
+    <ul id="hypercarHistory"></ul>
+  </div>
+
+  <!-- LMP2 -->
+  <div class="section lmp2">
+    <h2>LMP2</h2>
+    <button onclick="pickLMP2()">Roll LMP2</button>
+    <div id="lmp2Result" class="result">—</div>
+    <ul id="lmp2History"></ul>
+  </div>
+
+  <!-- LMGT3 -->
+  <div class="section lmgt3">
+    <h2>LMGT3</h2>
+    <button onclick="pickLMGT3()">Roll LMGT3</button>
+    <div id="lmgt3Result" class="result">—</div>
+    <ul id="lmgt3History"></ul>
+   </div>
+  </div>
+
+  <script>
+    const hypercarEntries = [  "#007 Aston Martin THOR", "#009 Aston Martin THOR", "#4 Porsche Penske", "#5 Porsche Penske",
+  "#6 Porsche Penske", "#7 Toyota Gazoo Racing", "#8 Toyota Gazoo Racing", "#12 Cadillac Jota",
+  "#15 BMW M Team WRT", "#20 BMW M Team WRT", "#35 Alpine Endurance", "#36 Alpine Endurance",
+  "#38 Cadillac Jota", "#50 Ferrari AF Corse", "#51 Ferrari AF Corse", "#83 AF Corse",
+  "#93 Peugeot TotalEnergies", "#94 Peugeot TotalEnergies", "#99 Proton Competition",
+  "#101 Cadillac WTR", "#311 Cadillac Whelen"];
+   
+    const lmp2Entries = [  "#9 Iron Lynx-Proton", "#11 Proton Competition", "#16 RLR M Sport", "#18 IDEC Sport", "#22 United Autosports",
+  "#23 United Autosports", "#24 Nielsen Racing", "#25 Algarve Pro Racing", "#28 IDEC Sport", "#29 TDS Racing",
+  "#34 Inter Europol", "#37 CLX Pure Rxcing", "#43 Inter Europol", "#45 Algarve Pro", "#48 VDS Panis Racing",
+  "#183 AF Corse", "#199 AO by TF"];
+    
+    const lmgt3Entries = [ "#10 Racing Spirit of LeMans", "#13 AWA Racing", "#21 Vista AF Corse", "#27 Heart of Racing", "#31 The Bend Team WRT",
+  "#33 TF Sport", "#46 Team WRT", "#54 Vista AF Corse", "#57 Kessel Racing", "#59 United Autosports",
+  "#60 Iron Lynx", "#61 Iron Lynx", "#63 Iron Lynx", "#77 Proton Competition", "#78 Akkodis ASP Team",
+  "#81 TF Sport", "#85 Iron Dames", "#87 Akkodis ASP Team", "#88 Proton Competition", "#90 Manthey",
+  "#92 Manthey 1st Phorm", "#95 United Autosports", "#150 Richard Mille AF Corse", "#193 Ziggo Sport Tempesta"];
+
+    let hypercarHistory = [];
+    let lmp2History = [];
+    let lmgt3History = [];
+
+    function pickHypercar() {
+      const choice = getRandom(hypercarEntries);
+      document.getElementById("hypercarResult").textContent = choice;
+      updateHistory(hypercarHistory, choice, "hypercarHistory");
+    }
+
+    function pickLMP2() {
+      const choice = getRandom(lmp2Entries);
+      document.getElementById("lmp2Result").textContent = choice;
+      updateHistory(lmp2History, choice, "lmp2History");
+    }
+
+    function pickLMGT3() {
+      const choice = getRandom(lmgt3Entries);
+      document.getElementById("lmgt3Result").textContent = choice;
+      updateHistory(lmgt3History, choice, "lmgt3History");
+    }
+
+    function getRandom(array) {
+      return array[Math.floor(Math.random() * array.length)];
+    }
+
+    function updateHistory(historyArray, newItem, elementId) {
+      historyArray.unshift(newItem);
+      if (historyArray.length > 3) historyArray.pop();
+      document.getElementById(elementId).innerHTML = historyArray.map(item => `<li>${item}</li>`).join("");
+    }
+  </script>
+
+<footer style="margin-top: 60px; padding: 20px; background: #111; text-align: center; color: #fff;">
+  <p style="margin: 0; font-size: 14px;">
+    This is a little passion project following a few TikTok videos. There is no link to any of the racing series or drivers that appear on this site. All of this site has been created by me, Shaun Jacques · Visit 
+    <a href="https://shaunjacques.co.uk" target="_blank" style="color: #00aced; text-decoration: underline;">
+      my website</a>
+      for more about me. 
+  </p>
+</footer>
+
+</body>
+</html>
